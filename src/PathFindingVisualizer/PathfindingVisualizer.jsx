@@ -59,13 +59,10 @@ export default class PathfindingVisualizer extends Component {
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
-
-  visualizeAstar(){
-
-  }
-  visualizeDeepSearch(){
-
-  }
+  
+    
+  
+  
   /*Constant animation*/
   animateShortestPath(nodesInShortestPathOrder) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
@@ -76,20 +73,20 @@ export default class PathfindingVisualizer extends Component {
       }, 50 * i);
     }
   }
-
+  resetgrid(){
+    const grid = getStarterGrid();
+    this.setState({ grid });
+  }
   render() {
     const { grid, mouseIsPressed } = this.state;
 
     return (
       <>
-        <button onClick={() => this.visualizeAstar()}>
-          Visualize Astar Algorithm
-        </button>
         <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
         </button>
-        <button onClick={() => this.visualizeDeepSearch()}>
-          Visualize Deep-Search Algorithm
+        <button onClick={() => this.componentDidMount()}>
+          clear walls
         </button>
         <h2>
           Made by Calvin Power(19242921)</h2>
@@ -104,7 +101,7 @@ export default class PathfindingVisualizer extends Component {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const { row, col, isFinish, isStart, isWall } = node;
+                  const { row, col, isFinish, isStart, isWall,} = node;
                   return (
                     <Node
                       key={nodeIdx}
@@ -160,7 +157,7 @@ const getNewGridWithWallToggled = (grid, row, col) => {
   const newGrid = grid.slice();
   const node = newGrid[row][col];
   const newNode = {
-    ...node,
+     ...node,
     isWall: !node.isWall,
   };
   newGrid[row][col] = newNode;
