@@ -60,6 +60,12 @@ export default class PathfindingVisualizer extends Component {
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
+  visualizeAstar(){
+
+  }
+  visualizeDeepSearch(){
+
+  }
   /*Constant animation*/
   animateShortestPath(nodesInShortestPathOrder) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
@@ -76,10 +82,23 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
+        <button onClick={() => this.visualizeAstar()}>
+          Visualize Astar Algorithm
+        </button>
         <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
         </button>
-        <div>Made by Calvin Power(19242921)</div>
+        <button onClick={() => this.visualizeDeepSearch()}>
+          Visualize Deep-Search Algorithm
+        </button>
+        <h2>
+          Made by Calvin Power(19242921)</h2>
+        <h3>
+          instructions:
+          </h3>
+        <div3>
+          You can place walls by clicking on white tiles, then click on desired path finding Algorithm
+          </div3>
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
