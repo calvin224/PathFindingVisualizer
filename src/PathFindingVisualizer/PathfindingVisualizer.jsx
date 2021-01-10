@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Node from "./Node/Node";
-import { dijkstra, getNodesInShortestPathOrder } from "../Algorithms/Dijkstra";
+import { dijkstra } from "../Algorithms/Dijkstra";
+import { bfs } from "../Algorithms/bfs";
+import { dfs } from "../Algorithms/dfs";
 import "./PathfindingVisualizer.css";
 
 const startNodeColumn = 10;
@@ -35,7 +37,7 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ mouseIsPressed: false });
   }
   /*Animates differnet algorithms*/
-  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  animate(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
@@ -45,37 +47,55 @@ export default class PathfindingVisualizer extends Component {
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-visited";
+        const nodeClassName = document.getElementById(
+          `node-${node.row}-${node.col}`
+        ).className;
+        if (
+          nodeClassName !== "node node-start" &&
+          nodeClassName !== "node node-finish"
+        ) {
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node node-visited";
+        }
       }, 10 * i);
     }
   }
-
+  //
   visualizeDijkstra() {
     const { grid } = this.state;
     const startNode = grid[startNodeRow][startNodeColumn];
     const finishNode = grid[finishNodeRow][finishNodeColumn];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    this.animate(visitedNodesInOrder, nodesInShortestPathOrder);
   }
-  
-    
-  
-  
+  visualizebfs() {
+    const { grid } = this.state;
+    const startNode = grid[startNodeRow][startNodeColumn];
+    const finishNode = grid[finishNodeRow][finishNodeColumn];
+    const visitedNodesInOrder = bfs(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    this.animate(visitedNodesInOrder, nodesInShortestPathOrder);
+  }
+  visualizeDFS() {
+    const { grid } = this.state;
+    const startNode = grid[startNodeRow][startNodeColumn];
+    const finishNode = grid[finishNodeRow][finishNodeColumn];
+    const visitedNodesInOrder = dfs(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    this.animate(visitedNodesInOrder, nodesInShortestPathOrder);
+  }
+
   /*Constant animation*/
   animateShortestPath(nodesInShortestPathOrder) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
+
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-shortest-path";
       }, 50 * i);
     }
-  }
-  resetgrid(){
-    const grid = getStarterGrid();
-    this.setState({ grid });
   }
   render() {
     const { grid, mouseIsPressed } = this.state;
@@ -85,23 +105,25 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
         </button>
-        <button onClick={() => this.componentDidMount()}>
-          clear walls
+        <button onClick={() => this.visualizeDFS()}>
+          Visualize Depth-First Search Algorithm
         </button>
-        <h2>
-          Made by Calvin Power(19242921)</h2>
-        <h3>
-          instructions:
-          </h3>
+        <button onClick={() => this.visualizebfs()}>
+          Visualize Breadth-first Search Algorithm
+        </button>
+        <button onClick={() => this.componentDidMount()}>clear walls</button>
+        <h2>Made by Calvin Power(19242921)</h2>
+        <h3>instructions:</h3>
         <div3>
-          You can place walls by clicking on white tiles, then click on desired path finding Algorithm
-          </div3>
+          You can place walls by clicking on white tiles, then click on desired
+          path finding Algorithm
+        </div3>
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const { row, col, isFinish, isStart, isWall,} = node;
+                  const { row, col, isFinish, isStart, isWall } = node;
                   return (
                     <Node
                       key={nodeIdx}
@@ -157,9 +179,19 @@ const getNewGridWithWallToggled = (grid, row, col) => {
   const newGrid = grid.slice();
   const node = newGrid[row][col];
   const newNode = {
-     ...node,
+    ...node,
     isWall: !node.isWall,
   };
   newGrid[row][col] = newNode;
   return newGrid;
 };
+
+function getNodesInShortestPathOrder(finishNode) {
+  const nodesInShortestPathOrder = [];
+  let currentNode = finishNode;
+  while (currentNode !== null) {
+    nodesInShortestPathOrder.unshift(currentNode);
+    currentNode = currentNode.previousNode;
+  }
+  return nodesInShortestPathOrder;
+}
