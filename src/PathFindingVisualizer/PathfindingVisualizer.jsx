@@ -5,10 +5,10 @@ import { bfs } from "../Algorithms/bfs";
 import { dfs } from "../Algorithms/dfs";
 import "./PathfindingVisualizer.css";
 
-const startNodeColumn = 10;
-const startNodeRow = 10;
-const finishNodeColumn = 35;
-const finishNodeRow = 10;
+var startNodeColumn = 10;
+var startNodeRow = 10;
+var finishNodeColumn = 35;
+var finishNodeRow = 10;
 
 export default class PathfindingVisualizer extends Component {
   constructor() {
@@ -97,6 +97,35 @@ export default class PathfindingVisualizer extends Component {
       }, 50 * i);
     }
   }
+  changeloc(){
+   startNodeColumn = 15;
+   startNodeRow = 17;
+   finishNodeColumn = 1;
+   finishNodeRow = 15;
+   const grid = getStarterGrid();
+    this.setState({ grid });
+
+  }
+  fn1() {
+    startNodeColumn =parseInt(document.getElementById("text1").value)-1;
+    const grid = getStarterGrid();
+    this.setState({ grid });
+ }
+ fn2(){
+     startNodeRow = parseInt(document.getElementById("text2").value)-1;
+     const grid = getStarterGrid();
+     this.setState({ grid });
+  }
+  fn3() {
+    finishNodeColumn =parseInt(document.getElementById("text3").value)-1;
+    const grid = getStarterGrid();
+    this.setState({ grid });
+ }
+ fn4(){
+     finishNodeRow = parseInt(document.getElementById("text4").value)-1;
+     const grid = getStarterGrid();
+     this.setState({ grid });
+  }
   render() {
     const { grid, mouseIsPressed } = this.state;
 
@@ -117,7 +146,32 @@ export default class PathfindingVisualizer extends Component {
         <div3>
           You can place walls by clicking on white tiles, then click on desired
           path finding Algorithm
-        </div3>
+        </div3><br></br>
+        <div4>
+          <input id="text1" placeholder="Start node Row"></input>
+          <button onClick={() => this.fn2()}>
+          change
+        </button>
+        <input id="text2" placeholder="Start node Column"></input>
+          <button onClick={() => this.fn1()}>
+          change
+        </button>
+        <br></br>
+        <input id="text3" placeholder="Finish node Row"></input>
+          <button onClick={() => this.fn4()}>
+          change
+        </button>
+        <input id="text4" placeholder="Finish node Column"></input>
+          <button onClick={() => this.fn3()}>
+          change
+        </button>
+        <br></br>
+        <div5>
+          Above you can change both the Start and the Finish nodes
+          <br></br>
+          Grid is 20 rows by 50 columns
+        </div5>
+        </div4>
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
