@@ -8,14 +8,6 @@
 .node-finish {
   background-color: red;
 }
-
-.node-node{
-  width: 25px;
-  height: 25px;
-  outline: 1px solid rgb(0, 0, 0);
-  display: inline-block;
-}
-
 .node-start {
   background-color: green;
 }
@@ -29,7 +21,6 @@
   animation-fill-mode: forwards;
   animation-play-state: running;
 }
-
 @keyframes visitedAnimation {
   0% {
     transform: scale(0.3);
@@ -84,29 +75,4 @@
   }
 }
 
-.reset {
-  animation-name: reset;
-  animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
-}
-@keyframes reset {
-  0% {
-    transform: scale(0.3);
-    background-color: rgb(255, 255, 255);
-  }
 
-  50% {
-    transform: scale(1.2);
-    background-color: rgb(255, 255, 255);
-  }
-
-  100% {
-    transform: scale(1);
-    background-color: rgb(255, 255, 255);
-  }
-}

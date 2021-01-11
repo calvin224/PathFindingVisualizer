@@ -4,7 +4,7 @@ import { dijkstra } from "../Algorithms/Dijkstra";
 import { bfs } from "../Algorithms/bfs";
 import { dfs } from "../Algorithms/dfs";
 import "./PathfindingVisualizer.css";
-
+// default values
 var startNodeColumn = 10;
 var startNodeRow = 10;
 var finishNodeColumn = 35;
@@ -60,7 +60,6 @@ export default class PathfindingVisualizer extends Component {
       }, 10 * i);
     }
   }
-  //
   visualizeDijkstra() {
     const { grid } = this.state;
     const startNode = grid[startNodeRow][startNodeColumn];
@@ -85,7 +84,6 @@ export default class PathfindingVisualizer extends Component {
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     this.animate(visitedNodesInOrder, nodesInShortestPathOrder);
   }
-
   /*Constant animation*/
   animateShortestPath(nodesInShortestPathOrder) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
@@ -96,15 +94,6 @@ export default class PathfindingVisualizer extends Component {
           "node node-shortest-path";
       }, 50 * i);
     }
-  }
-  changeloc(){
-   startNodeColumn = 15;
-   startNodeRow = 17;
-   finishNodeColumn = 1;
-   finishNodeRow = 15;
-   const grid = getStarterGrid();
-    this.setState({ grid });
-
   }
   fn1() {
     startNodeColumn =parseInt(document.getElementById("text1").value)-1;
@@ -215,7 +204,6 @@ const getStarterGrid = () => {
   }
   return grid;
 };
-
 const createNode = (col, row) => {
   return {
     col,
@@ -228,7 +216,6 @@ const createNode = (col, row) => {
     previousNode: null,
   };
 };
-
 const getNewGridWithWallToggled = (grid, row, col) => {
   const newGrid = grid.slice();
   const node = newGrid[row][col];
@@ -239,7 +226,6 @@ const getNewGridWithWallToggled = (grid, row, col) => {
   newGrid[row][col] = newNode;
   return newGrid;
 };
-
 function getNodesInShortestPathOrder(finishNode) {
   const nodesInShortestPathOrder = [];
   let currentNode = finishNode;
