@@ -96,22 +96,22 @@ export default class PathfindingVisualizer extends Component {
     }
   }
   fn1() {
-    startNodeColumn =parseInt(document.getElementById("text1").value)-1;
+    startNodeColumn =parseInt(document.getElementById("text2").value)-1;
     const grid = getStarterGrid();
     this.setState({ grid });
  }
  fn2(){
-     startNodeRow = parseInt(document.getElementById("text2").value)-1;
+     startNodeRow = parseInt(document.getElementById("text1").value)-1;
      const grid = getStarterGrid();
      this.setState({ grid });
   }
   fn3() {
-    finishNodeColumn =parseInt(document.getElementById("text3").value)-1;
+    finishNodeColumn =parseInt(document.getElementById("text4").value)-1;
     const grid = getStarterGrid();
     this.setState({ grid });
  }
  fn4(){
-     finishNodeRow = parseInt(document.getElementById("text4").value)-1;
+     finishNodeRow = parseInt(document.getElementById("text3").value)-1;
      const grid = getStarterGrid();
      this.setState({ grid });
   }
@@ -130,7 +130,6 @@ export default class PathfindingVisualizer extends Component {
           Visualize Breadth-first Search Algorithm
         </button>
         <button onClick={() => this.componentDidMount()}>clear walls</button>
-        <h2>Made by Calvin Power(19242921)</h2>
         <h3>instructions:</h3>
         <div3>
           You can place walls by clicking on white tiles, then click on desired
@@ -188,6 +187,7 @@ export default class PathfindingVisualizer extends Component {
             );
           })}
         </div>
+      <footer><p>Made by Calvin Power(19242921)</p></footer>
       </>
     );
   }
